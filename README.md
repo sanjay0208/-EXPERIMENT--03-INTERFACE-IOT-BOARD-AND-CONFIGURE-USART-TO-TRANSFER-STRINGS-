@@ -5,7 +5,7 @@
 ###  ROLL NO : 212222110038
 ###  DEPARTMENT: CSE(IOT)
 
-# EXPERIMENT--04-INTERFACING IOT DEVELOPMENT BOARD AND CONFIGURE USART FOR TRANSFERRING STRINGS 
+# EXPERIMENT--03-INTERFACING IOT DEVELOPMENT BOARD AND CONFIGURE USART FOR TRANSFERRING STRINGS 
 ## Aim: To Interface iot development board for configuring the the usart and transfer strings though it 
 ## Components required: STM32 CUBE IDE, ARM IOT development board,  STM programmer tool, Serial port utility tool 
 ## Theory 
@@ -177,4 +177,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 
  
 ## Result :
-Interfacing a digital Input (Pushbutton ) with ARM microcontroller based IOT development is executed and the results are verified.
+configuring and usart is accomplished and string data is visualized on the serial port utilty
