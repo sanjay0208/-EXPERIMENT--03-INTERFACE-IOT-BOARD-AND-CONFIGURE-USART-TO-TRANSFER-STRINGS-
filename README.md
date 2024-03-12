@@ -1,9 +1,9 @@
 
 ###  DATE: 
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: SANJAY M
+###  ROLL NO : 212222110038
+###  DEPARTMENT: CSE(IOT)
 
 # EXPERIMENT--04-INTERFACING IOT DEVELOPMENT BOARD AND CONFIGURE USART FOR TRANSFERRING STRINGS 
 ## Aim: To Interface iot development board for configuring the the usart and transfer strings though it 
@@ -43,46 +43,52 @@ configure in the usart 2 as asynchronous mode and set the baud rate as 115200 as
 
 ## STM 32 CUBE PROGRAM :
 ~~~
+
 #include "main.h"
-#if defined (__ICCARM__) || defined (__ARMCC_VERSION)
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#elif defined(__GNUC__)
-
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#endif
-
+#include "Soil Moisture Sensor.h"
+#include "stdio.h"
 UART_HandleTypeDef huart2;
-
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
+void ADC_Init(void);
+void GPIO_Init(void);
+#if defined (__ICCARM__) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif /* __ICCARM__ || __ARMCC_VERSION */
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
 
 int main(void)
 {
+ 
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  ADC_Init();
+  GPIO_Init();
   while (1)
   {
-    printf("Saveetha Engineering College");
-    printf("SANJAY\n");
-    printf("212222110038\n");
-	  HAL_Delay(500);
+	  soil_moisture();
   }
+ 
 }
-PUTCHAR_PROTOTYPE
-{
-  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
-  return ch;
-}
+
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
+ 
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
@@ -92,7 +98,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  
+ 
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK3|RCC_CLOCKTYPE_HCLK
                               |RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1
                               |RCC_CLOCKTYPE_PCLK2;
@@ -111,7 +117,7 @@ void SystemClock_Config(void)
 static void MX_USART2_UART_Init(void)
 {
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -137,11 +143,16 @@ static void MX_USART2_UART_Init(void)
   {
     Error_Handler();
   }
+
 }
+
 static void MX_GPIO_Init(void)
 {
+
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
 }
+
 void Error_Handler(void)
 {
   __disable_irq();
@@ -151,8 +162,10 @@ void Error_Handler(void)
 }
 
 #ifdef  USE_FULL_ASSERT
+
 void assert_failed(uint8_t *file, uint32_t line)
 {
+  
 }
 #endif
 ~~~
@@ -160,7 +173,8 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 ## Output screen shots of Serial port utility   :
 
+<img width="1275" alt="Screenshot 2024-03-12 at 9 47 11 PM" src="https://github.com/sanjay0208/-EXPERIMENT--03-INTERFACE-IOT-BOARD-AND-CONFIGURE-USART-TO-TRANSFER-STRINGS-/assets/119406959/68757dc4-5a8c-4cbc-8500-a6acbde6c025">
 
  
 ## Result :
-configuring and usart is accomplished and string data is visualized on the serial port utilty
+Interfacing a digital Input (Pushbutton ) with ARM microcontroller based IOT development is executed and the results are verified.
